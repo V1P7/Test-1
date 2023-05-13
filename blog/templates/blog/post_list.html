@@ -1,35 +1,14 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Мой блог</title>
-	<link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
-	<header>
-		<nav>
-			<ul>
-				<li><a href="#">Главная</a></li>
-				<li><a href="#">О нас</a></li>
-				<li><a href="#">Контакты</a></li>
-				<li class="login-button"><a href="/admin">Войти</a></li>
-			</ul>
-		</nav>
-	</header>
-	<main>
+{%  extends 'blog/base.html' %}
 
-		<div class="post-grid">
-            {% for post in posts %}
-			<article>
-				<header>
-					<h1><a href="">{{ post.title }}</a></h1>
-					<p>Опубликована: {{ post.published_date }}</p>
-                    <p>Автор: {{ post.author }}</p>
-					<p>{{ post.text|linebreaksbr }}</p>
-				</header>
-			</article>
-            {% endfor %}
-        </div>
-    </main>
-</body>
-</html>
+{% block content %}
+    {% for post in posts %}
+        <article>
+            <header>
+                <h1><a href="{% url 'post_detail' pk=post.pk %} ">{{ post.title }}</a></h1>
+                <p>Опубликована: {{ post.published_date }}</p>
+                <p>Автор: {{ post.author }}</p>
+                <p>{{ post.text|linebreaksbr }}</p>
+            </header>
+        </article>
+    {% endfor %}
+{% endblock %}
